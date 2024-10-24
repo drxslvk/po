@@ -12,4 +12,61 @@ Vlan    Mac Address       Type        Ports
 
 шаг 1: отправка пакета ICMP на компьютер с IP-адресом 192.168.1.2
 создается apr-пакет для того чтобы найти MAC-адрес компьютера с адресом 192.168.1.2
-в поле получателя arp-пакета указан широковещательный mac-адрес FFFF.FFFF.FFFF
+в поле получателя arp-пакета указан широковещательный mac-адрес FFFF.FFFF.FFFF 
+шаг 2: arp пакет отрпавляетсякомпьютера к коммутатору. коммутатор записывает mac-адрес отправителя себе в таблицу, запомниая порт по которому пришел пакет.
+Switch#show mac-address-table
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+
+   1    0001.6407.d964    DYNAMIC     Fa0/1
+шаг 3: компьютер-приемник отвечает на запрос arp и отправляет ответ на коммутатор
+
+Switch#show mac-address-table 
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+
+   1    0001.6407.d964    DYNAMIC     Fa0/1
+   1    0060.7087.da57    DYNAMIC     Fa0/4
+шаг 4: коммутатор передает ответ на запрос компьютеру-источнику, компьютер-источник записывает информацию о mac-адресе получателя в свою arp-таблицу
+C:\>arp -a
+  Internet Address      Physical Address      Type
+  192.168.1.4           0060.7087.da57        dynamic
+шаги 5,6,7,8: компьютер отправляет icmp-пакет по известному mac-адресу получателя.
+
+
+эксперимент с компьютером 192.168.1.2 
+содержимое arp-таблицы:
+C:\>arp -a
+No ARP Entries Found 
+шаг 1:
+Switch#show mac-address-table 
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+
+   1    00d0.baed.0c30    DYNAMIC     Fa0/2
+шаг 2:
+Switch#show mac-address-table 
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+
+   1    000b.bea3.8274    DYNAMIC     Fa0/3
+   1    00d0.baed.0c30    DYNAMIC     Fa0/2
+шаг 3:
+C:\>arp -a
+  Internet Address      Physical Address      Type
+  192.168.1.3           000b.bea3.8274        dynamic
+
+
+
