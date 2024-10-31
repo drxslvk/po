@@ -1,0 +1,116 @@
+Лабораторная работа №2 
+Настройка вирутальных локальных сетей (VLAN) 
+
+Комутатор Switch0:
+Switch>en
+Switch#conf y
+            ^
+% Invalid input detected at '^' marker.
+	
+Switch#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#vlan 2
+Switch(config-vlan)#name vlan2svo
+Switch(config-vlan)#vlan 3
+Switch(config-vlan)#name vlan3goyda
+Switch(config-vlan)#interface vlan
+                    ^
+% Invalid input detected at '^' marker.
+	
+Switch(config-vlan)#int vlan
+                    ^
+% Invalid input detected at '^' marker.
+	
+Switch(config-vlan)#int vlan 2
+Switch(config-if)#
+%LINK-5-CHANGED: Interface Vlan2, changed state to up
+int vlan 3
+Switch(config-if)#
+%LINK-5-CHANGED: Interface Vlan3, changed state to up
+
+Switch(config-if)#int fa0/1
+Switch(config-if)#sw mod a
+Switch(config-if)#sw mod access 
+Switch(config-if)#sw access vlan 2 
+Switch(config-if)#
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan2, changed state to up
+int fa0/2
+Switch(config-if)#sw mod access 
+Switch(config-if)#sw access vlan 2 
+Switch(config-if)#int fa0/3
+Switch(config-if)#sw access vlan 3
+Switch(config-if)#
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan3, changed state to up
+sw mod access 
+Switch(config-if)#sw access vlan 3
+Switch(config-if)#int gi0/1
+Switch(config-if)#sw mod 
+Switch(config-if)#sw mod 
+Switch(config-if)#sw mod t
+Switch(config-if)#sw mod trunk 
+
+Switch(config-if)#
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1, changed state to down
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1, changed state to up
+sw trunk al
+
+Комутатор Switch1:
+Switch>en
+Switch#conf y
+            ^
+% Invalid input detected at '^' marker.
+	
+Switch#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#vlan 2
+Switch(config-vlan)#name vlan2svo
+Switch(config-vlan)#vlan 3
+Switch(config-vlan)#name vlan3goyda
+Switch(config-vlan)#int
+Switch(config-vlan)#int vlan
+                    ^
+% Invalid input detected at '^' marker.
+	
+Switch(config-vlan)#int vlan 2
+Switch(config-if)#
+%LINK-5-CHANGED: Interface Vlan2, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan2, changed state to up
+
+Switch(config-if)#int vlan 3
+Switch(config-if)#
+%LINK-5-CHANGED: Interface Vlan3, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan3, changed state to up
+
+Switch(config-if)#int fa0/1
+Switch(config-if)#
+Switch(config-if)#sw mod a
+Switch(config-if)#sw mod access 
+Switch(config-if)#sw ac
+Switch(config-if)#sw access vlan 3
+Switch(config-if)#int fa0/2
+Switch(config-if)#sw mod access 
+Switch(config-if)#sw access vlan 3
+Switch(config-if)#int fa0/3
+Switch(config-if)#sw mod access 
+Switch(config-if)#sw access vlan 2
+Switch(config-if)#sw mod t
+Switch(config-if)#sw mod trunk 
+
+Switch(config-if)#
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/3, changed state to down
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/3, changed state to up
+
+Switch(config-if)#sw trunk al
+Switch(config-if)#sw trunk allowed vl
+Switch(config-if)#sw trunk allowed vlan 2-3
+Switch(config-if)#sw mod access 
+Switch(config-if)#sw access vlan 2
+Switch(config-if)#sw access vlan 2
+
+
+
+
