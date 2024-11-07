@@ -111,6 +111,28 @@ Switch(config-if)#sw mod access
 Switch(config-if)#sw access vlan 2
 Switch(config-if)#sw access vlan 2
 
+Настройка связи между vlan с помощью маршрутизатора
 
+1. подключаем маршрутизатор (2911, порт Gig0/2) к одному из коммутаторов (Switch1, подключение по порту Gig0/2)
+2. Настраиваем на маршрутизаторе подинтерфейсы для шлюза каждого из готовых
+ vlaninterface GigabitEthernet0/2.2
+ encapsulation dot1Q 2
+ ip address 192.168.2.254 255.255.255.0
+!
+interface GigabitEthernet0/2.3
+ encapsulation dot1Q 3
+ ip address 192.168.3.254 255.255.255.0
+3. Включаем физический интерфейс маршрутизатора
+int gi0/2
+  no shutdown
+4.Настраиваем порт коммутатора (Switch1, Gig0/2) в транковый режим
+ Выбираем интерфейс: int gi0/2
+ Переключаем режим: sw mode trunk
+ НАстраиваем только нужные vlan: ws trunk al vlan 2-3
+5. Добавляем адреса шлюзов к насторйкам ip в компьютерах (для vlan 2 шлюз 192.168.2.254, лля vlan 3 шлюз 192.168.3.254)
+6. Проверяем связь со сволим шлюзом (ping 192.168.2.254)
+7. проверяем связь с соседним vlan (ping 192.168.3.254)
 
-
+interface GigabitEthernet0/2.4
+ encapsulation dot1Q 4
+ ip address 192.168.4.254 255.255.255.0
