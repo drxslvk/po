@@ -1,0 +1,19 @@
+конфигурация маршрутизатора
+
+interface GigabitEthernet0/2.2
+ encapsulation dot1Q 2
+ ip address 192.168.1.62 255.255.255.192
+!
+interface GigabitEthernet0/2.3
+ encapsulation dot1Q 3
+ ip address 192.168.1.126 255.255.255.192
+!
+interface GigabitEthernet0/2.4
+ encapsulation dot1Q 4
+ ip address 192.168.1.158 255.255.255.224
+!
+interface GigabitEthernet0/2.5
+ encapsulation dot1Q 5
+ ip address 192.168.1.174 255.255.255.240
+!
+
