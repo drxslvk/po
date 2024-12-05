@@ -1,0 +1,111 @@
+Протокол динамической маршрутизации RIP
+
+Настройка Router0:
+Router#show ip route 
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     192.168.10.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.10.0/24 is directly connected, GigabitEthernet0/1
+L       192.168.10.254/32 is directly connected, GigabitEthernet0/1
+     192.168.11.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.11.0/24 is directly connected, GigabitEthernet0/2
+L       192.168.11.254/32 is directly connected, GigabitEthernet0/2
+R    192.168.12.0/24 [120/1] via 192.168.14.2, 00:00:00, GigabitEthernet0/0/0
+R    192.168.13.0/24 [120/1] via 192.168.14.2, 00:00:00, GigabitEthernet0/0/0
+     192.168.14.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.14.0/24 is directly connected, GigabitEthernet0/0/0
+L       192.168.14.1/32 is directly connected, GigabitEthernet0/0/0
+R    192.168.16.0/24 [120/1] via 192.168.14.2, 00:00:00, GigabitEthernet0/0/0
+
+Настройка Router1:
+Router#show ip route 
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+R    192.168.10.0/24 [120/1] via 192.168.14.1, 00:00:19, GigabitEthernet0/0/0
+R    192.168.11.0/24 [120/1] via 192.168.14.1, 00:00:19, GigabitEthernet0/0/0
+     192.168.12.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.12.0/24 is directly connected, GigabitEthernet0/1
+L       192.168.12.254/32 is directly connected, GigabitEthernet0/1
+     192.168.13.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.13.0/24 is directly connected, GigabitEthernet0/2
+L       192.168.13.254/32 is directly connected, GigabitEthernet0/2
+     192.168.14.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.14.0/24 is directly connected, GigabitEthernet0/0/0
+L       192.168.14.2/32 is directly connected, GigabitEthernet0/0/0
+     192.168.16.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.16.32/27 is directly connected, GigabitEthernet0/1/0
+L       192.168.16.62/32 is directly connected, GigabitEthernet0/1/0
+
+Настройка динамической раздачи ip адресов:
+Router#show ip dhcp binding 
+IP address       Client-ID/              Lease expiration        Type
+                 Hardware address
+192.168.12.1     0090.2B30.BA35           --                     Automatic
+192.168.12.2     00D0.BC34.1419           --                     Automatic
+192.168.13.1     0050.0F9C.6918           --                     Automatic
+192.168.13.2     00E0.8FAD.AE4D           --                     Automatic
+192.168.16.33    0002.4A2E.6D28           --                     Automatic
+
+Router#show ip dhcp pool 
+
+Pool NET1 :
+ Utilization mark (high/low)    : 100 / 0
+ Subnet size (first/next)       : 0 / 0 
+ Total addresses                : 511
+ Leased addresses               : 0
+ Excluded addresses             : 0
+ Pending event                  : none
+
+ 0 subnet is currently in the pool
+
+Pool NET3 :
+ Utilization mark (high/low)    : 100 / 0
+ Subnet size (first/next)       : 0 / 0 
+ Total addresses                : 254
+ Leased addresses               : 2
+ Excluded addresses             : 0
+ Pending event                  : none
+
+ 1 subnet is currently in the pool
+ Current index        IP address range                    Leased/Excluded/Total
+ 192.168.12.1         192.168.12.1     - 192.168.12.254    2    / 0     / 254
+
+Pool NET4 :
+ Utilization mark (high/low)    : 100 / 0
+ Subnet size (first/next)       : 0 / 0 
+ Total addresses                : 254
+ Leased addresses               : 2
+ Excluded addresses             : 0
+ Pending event                  : none
+
+ 1 subnet is currently in the pool
+ Current index        IP address range                    Leased/Excluded/Total
+ 192.168.13.1         192.168.13.1     - 192.168.13.254    2    / 0     / 254
+
+Pool NET5 :
+ Utilization mark (high/low)    : 100 / 0
+ Subnet size (first/next)       : 0 / 0 
+ Total addresses                : 30
+ Leased addresses               : 1
+ Excluded addresses             : 0
+ Pending event                  : none
+
+ 1 subnet is currently in the pool
+ Current index        IP address range                    Leased/Excluded/Total
+ 192.168.16.33        192.168.16.33    - 192.168.16.62     1    / 0     / 30
