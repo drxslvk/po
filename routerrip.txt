@@ -109,3 +109,15 @@ Pool NET5 :
  1 subnet is currently in the pool
  Current index        IP address range                    Leased/Excluded/Total
  192.168.16.33        192.168.16.33    - 192.168.16.62     1    / 0     / 30
+
+
+Переключение RIP на версию 2
+
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#router rip
+Router(config-router)#version 2
+
+Версия 2 RIP умеет корректно работать с адресами подсетей, в отличие от первой версии
+
+Недостаток протокола RIP - отсутствие учета состояния линий при построении маршрутов

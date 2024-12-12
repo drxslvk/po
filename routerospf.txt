@@ -1,0 +1,36 @@
+Настройка протокола маршрутизации ospf
+1. Настроить loopback interface
+2. Объявить адреса сеетй маршрутизатора
+
+Конфигурация Router0:
+interface Loopback0
+ip address 172.168.100.1 255.255.255.255
+
+router ospf 1
+ log-adjacency-changes
+ network 192.168.10.0 0.0.0.255 area 0
+ network 192.168.11.0 0.0.0.255 area 0
+ network 192.168.14.0 0.0.0.255 area 0
+ network 192.168.17.0 0.0.0.3 area 0
+
+Конфигурация Router1:
+interface Loopback0
+ ip address 172.168.100.2 255.255.255.255
+
+router ospf 1
+ log-adjacency-changes
+ network 192.168.17.4 0.0.0.3 area 0
+ network 192.168.12.0 0.0.0.255 area 0
+ network 192.168.13.0 0.0.0.255 area 0
+ network 192.168.14.0 0.0.0.255 area 0
+ network 192.168.16.32 0.0.0.31 area 0
+
+Конфигурация Router2:
+interface Loopback0
+ ip address 172.168.100.3 255.255.255.255
+
+router ospf 1
+ log-adjacency-changes
+ network 192.168.16.64 0.0.0.31 area 0
+ network 192.168.17.0 0.0.0.3 area 0
+ network 192.168.17.4 0.0.0.3 area 0
