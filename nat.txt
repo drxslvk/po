@@ -1,0 +1,31 @@
+nterface GigabitEthernet0/0
+ ip address 192.168.2.254 255.255.255.0
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 192.168.1.254 255.255.255.0
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ ip address 210.210.1.1 255.255.255.252
+ ip nat outside
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+!
+ip nat inside source list NAT interface GigabitEthernet0/2 overload
+ip classless
+ip route 0.0.0.0 0.0.0.0 210.210.1.2 
+!
+ip flow-export version 9
+!
+!
+ip access-list standard NAT
+ permit 192.168.1.0 0.0.0.255
+ permit 192.168.2.0 0.0.0.255
